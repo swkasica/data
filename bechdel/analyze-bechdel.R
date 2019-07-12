@@ -5,6 +5,11 @@
 # By Andrew Flowers <andrew.flowers@fivethirtyeight.com>
 # See also http://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/
 
+# Added by Steve
+parent_dir = dirname(rstudioapi::getSourceEditorContext()$path)
+setwd(parent_dir)
+# Ended added by Steve
+
 # Install and load required packages
 # install.packages(c("gdata", "cwhmisc")) 
 library(gdata)
