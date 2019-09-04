@@ -21,7 +21,13 @@ series<-read.table("http://download.bls.gov/pub/time.series/sm/sm.series",sep="\
 state<-read.csv("payroll-states.csv",header=TRUE,strip.white=TRUE)
 series<-merge(series,state,by="state_code")
 
+## Added by Steve, the two sets of state codes are equal
+setdiff(unique(series$state_code), unique(state$state_code))
+setdiff(unique(state$state_code), unique(series$state_code))
+## End added by Steve
+
 # Add industry info
+## Added by Steve, I think this is unfixed code.
 industry<-read.table("http://download.bls.gov/pub/time.series/sm/sm.industry", sep="\t", header=TRUE, strip.white=TRUE)
 industry$industry_name<-NULL
 industry$industry_name<-row.names(industry)
