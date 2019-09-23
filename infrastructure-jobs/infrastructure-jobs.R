@@ -19,12 +19,15 @@ unlink(temp)
 # Add series info
 series<-read.table("http://download.bls.gov/pub/time.series/sm/sm.series",sep="\t",header=TRUE,strip.white=TRUE)
 state<-read.csv("payroll-states.csv",header=TRUE,strip.white=TRUE)
-series<-merge(series,state,by="state_code")
 
 ## Added by Steve, the two sets of state codes are equal
 setdiff(unique(series$state_code), unique(state$state_code))
 setdiff(unique(state$state_code), unique(series$state_code))
 ## End added by Steve
+
+series<-merge(series,state,by="state_code")
+
+
 
 # Add industry info
 ## Added by Steve, I think this is unfixed code.
@@ -33,6 +36,11 @@ industry$industry_name<-NULL
 industry$industry_name<-row.names(industry)
 row.names(industry)<-NULL
 names(industry)<-c("industry_name","industry_code")
+
+## Added by Steve, line 45 is a "lossy join," but it's an inner join so that's expected
+setdiff(unique(series$industry_code), unique(industry$industry_code))
+setdiff(unique(industry$industry_code), unique(series$industry_code))
+## End added by Steve
 
 series<-merge(series,industry,by="industry_code")
 
